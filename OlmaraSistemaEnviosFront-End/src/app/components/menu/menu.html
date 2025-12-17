@@ -1,0 +1,85 @@
+<mat-toolbar class="custom-toolbar">
+
+  <div class="logo-contanier">
+    <img src="assets/logoOlmara.png" alt="Olmara Education" />
+  </div>
+
+  <!-- MENÚ PÚBLICO -->
+  <div *ngIf="!isLoggedInUsuario()">
+    <button mat-button routerLink="/home" routerLinkActive="active" class="btn-rojo">
+      <mat-icon>home</mat-icon>
+      Inicio
+    </button>
+  </div>
+
+  <!-- MENÚ PRIVADO -->
+  <div *ngIf="isLoggedInUsuario()">
+    <button mat-button routerLink="/inicio" routerLinkActive="active" class="btn-rojo">
+      <mat-icon>home</mat-icon>
+      Inicio
+    </button>
+  </div>
+
+  <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
+    <button mat-button class="btn-rojo">
+      <mat-icon>local_shipping</mat-icon>
+      Envíos
+    </button>
+  </div>
+
+  <div *ngIf="isLoggedIn() && rolUsuario() === 'ADMIN'">
+    <button mat-button class="btn-rojo" routerLink="/usuarios">
+      <mat-icon>group</mat-icon>
+      Usuarios
+    </button>
+  </div>
+
+  <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
+    <button mat-button class="btn-rojo">
+      <mat-icon>location_city</mat-icon>
+      Ciudades
+    </button>
+  </div>
+
+  <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
+    <button mat-button class="btn-rojo">
+      <mat-icon>business</mat-icon>
+      Empresas
+    </button>
+  </div>
+
+  <div *ngIf="isLoggedIn() && rolUsuario() === 'ADMIN'">
+    <button mat-button class="btn-rojo">
+      <mat-icon>insert_chart</mat-icon>
+      Reportes
+    </button>
+  </div>
+
+<span class="spacer"></span>
+
+<div class="right-actions" *ngIf="isLoggedInUsuario() && !rutaEsHome()">
+
+  <button
+    *ngIf="rolUsuario() === 'ADMIN'"
+    mat-button
+    class="btn-alertas">
+    Alertas
+  </button>
+
+  <button
+    mat-button
+    class="btn-cuenta">
+    Mi cuenta
+  </button>
+
+  <button
+    mat-raised-button
+    class="btn-logout"
+    (click)="logout()">
+    Cerrar sesión
+  </button>
+
+</div>
+
+
+</mat-toolbar>

@@ -2,6 +2,30 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { inject } from '@angular/core';
 import { LoginService } from '../services/login.service';
 
+
+export const seguridadGuard = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const router = inject(Router);
+
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    router.navigate(['/login']);
+    return false;
+  }
+
+  return true;
+};
+
+
+
+/*
 export const seguridadGuard = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
@@ -26,3 +50,4 @@ export const seguridadGuard = (
     }
     return true; // Tiene acceso
 };
+*/

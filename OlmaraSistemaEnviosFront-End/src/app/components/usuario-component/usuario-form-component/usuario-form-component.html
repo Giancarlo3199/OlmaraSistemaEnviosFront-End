@@ -1,0 +1,28 @@
+
+<h2>Gestión de Usuarios</h2>
+
+<form [formGroup]="form" (ngSubmit)="guardar()">
+
+  <input formControlName="nombres" placeholder="Nombres">
+  <input formControlName="apellidos" placeholder="Apellidos">
+  <input formControlName="documentoIdentidad" placeholder="Documento">
+  <input formControlName="telefono" placeholder="Teléfono">
+  <input formControlName="correo" placeholder="Correo">
+  <input formControlName="username" placeholder="Usuario">
+  <input type="password" formControlName="password" placeholder="Password">
+
+  <select formControlName="rol">
+    <option [ngValue]="null">Seleccione rol</option>
+    <option *ngFor="let r of roles" [ngValue]="r">
+      {{ r.nombreRol }}
+    </option>
+  </select>
+
+  <label>
+    <input type="checkbox" formControlName="activo">
+    Activo
+  </label>
+
+  <button type="submit">Guardar</button>
+  <button type="submit" (click)="atras()">Atras</button>
+</form>

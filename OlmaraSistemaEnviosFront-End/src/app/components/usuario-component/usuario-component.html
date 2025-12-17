@@ -1,0 +1,45 @@
+
+<h2>Gestión de Usuarios</h2>
+
+<div style="margin-bottom: 16px;">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="nuevoUsuario()">
+    Nuevo Usuario
+  </button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombres</th>
+      <th>Usuario</th>
+      <th>Correo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let u of usuarios$ | async; trackBy: trackById">
+      <td>{{ u.nombres }}</td>
+      <td>{{ u.username }}</td>
+      <td>{{ u.correo }}</td>
+      <td>
+        <button
+          mat-button
+          color="accent"
+          (click)="editar(u.id)">
+          Editar
+        </button>
+
+        <button
+          mat-button
+          color="warn"
+          (click)="eliminar(u.id)">
+          Eliminar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

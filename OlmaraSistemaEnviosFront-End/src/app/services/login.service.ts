@@ -24,7 +24,7 @@ export class LoginService {
 
   verificar() {
   if (typeof window !== 'undefined') {
-    let token = sessionStorage.getItem('token');
+    let token = localStorage.getItem('token');
     return token != null;
   }
   return false;
@@ -32,7 +32,7 @@ export class LoginService {
 
 showRole() {
   if (typeof window !== 'undefined') {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) return null;
 
     const helper = new JwtHelperService();
@@ -43,7 +43,7 @@ showRole() {
 }
 
   getIdUsuario(): number | null {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) return null;
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(token);
@@ -56,7 +56,7 @@ showRole() {
   }
 
   logout(): void {
-    sessionStorage.clear();
+    localStorage.clear();
     this.loginStatus.next(false);
     this.userRol.next('');
   }
