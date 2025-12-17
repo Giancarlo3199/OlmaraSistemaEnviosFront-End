@@ -38,14 +38,14 @@ export class Login implements OnInit {
     this.loginService.login(request).subscribe({
       next: (data: any) => {
         // Guardar token
-        sessionStorage.setItem('token', data.jwttoken);
+        localStorage.setItem('token', data.jwttoken);
 
         // Decodificar y guardar rol
         const helper = new JwtHelperService();
         const decoded = helper.decodeToken(data.jwttoken);
         const rol = decoded?.role;
         if (rol) {
-          sessionStorage.setItem('rol', rol); // opcional
+          localStorage.setItem('rol', rol); // opcional
         }
 
         // Actualizar signals
