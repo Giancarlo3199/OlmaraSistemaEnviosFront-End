@@ -1,0 +1,25 @@
+<h2>Gestión de Ciudades</h2>
+
+<form [formGroup]="form" (ngSubmit)="guardar()">
+
+  <input
+  type="text"
+  formControlName="nombreCiudad"
+  placeholder="Nombre de la ciudad"
+/>
+
+
+  <label>
+    <input type="checkbox" formControlName="activo">
+    Activo
+  </label>
+
+  <button type="submit">
+    Guardar
+  </button>
+
+  <button type="submit" (click)="atras()">
+    Atrás
+  </button>
+
+</form>
