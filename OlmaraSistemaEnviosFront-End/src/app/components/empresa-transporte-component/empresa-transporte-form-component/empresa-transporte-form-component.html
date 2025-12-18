@@ -1,0 +1,19 @@
+<h2>Gestión de Empresa de Transporte</h2>
+
+<form [formGroup]="form" (ngSubmit)="guardar()">
+
+  <input type="text" formControlName="nombre" placeholder="Nombre de la empresa" />
+  <input type="text" formControlName="ruc" placeholder="RUC" />
+  <input type="text" formControlName="telefono" placeholder="Teléfono" />
+  <input type="email" formControlName="email" placeholder="Email" />
+  <input type="text" formControlName="direccion" placeholder="Dirección" />
+
+  <label>
+    <input type="checkbox" formControlName="activo">
+    Activo
+  </label>
+
+  <button type="submit">Guardar</button>
+  <button type="submit" (click)="atras()">Atrás</button>
+
+</form>

@@ -1,0 +1,43 @@
+
+<h2>Gestión de Ciudades</h2>
+
+<div style="margin-bottom: 16px;">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="nuevaCiudad()">
+    Nueva Ciudad
+  </button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Activo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let u of ciudades$ | async; trackBy: trackById">
+      <td>{{ u.nombreCiudad }}</td>
+       <td>{{ u.activo ? 'Sí' : 'No' }}</td>
+     <td>
+              <button
+  mat-button
+  color="accent"
+  (click)="editar(u.idCiudad)">
+  Editar
+</button>
+
+<button
+  mat-button
+  color="warn"
+  (click)="eliminar(u.idCiudad)">
+  Eliminar
+</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

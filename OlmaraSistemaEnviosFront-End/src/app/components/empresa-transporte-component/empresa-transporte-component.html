@@ -1,0 +1,46 @@
+<h2>Gestión de Empresas de Transporte</h2>
+
+<div style="margin-bottom: 16px;">
+  <button mat-raised-button (click)="nuevaEmpresa()">
+    Nueva Empresa
+  </button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>RUC</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+      <th>Activo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let e of empresas$ | async; trackBy: trackById">
+      <td>{{ e.nombre }}</td>
+      <td>{{ e.ruc }}</td>
+      <td>{{ e.telefono }}</td>
+      <td>{{ e.email }}</td>
+      <td>{{ e.activo ? 'Sí' : 'No' }}</td>
+      <td>
+       <button
+  mat-button
+  color="accent"
+  (click)="editar(e.id!)">
+  Editar
+</button>
+
+<button
+  mat-button
+  color="warn"
+  (click)="eliminar(e.id!)">
+  Eliminar
+</button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

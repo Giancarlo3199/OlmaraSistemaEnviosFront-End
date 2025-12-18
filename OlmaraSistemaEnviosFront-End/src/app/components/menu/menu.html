@@ -35,16 +35,16 @@
   </div>
 
   <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
-    <button mat-button class="btn-rojo">
+    <button mat-button class="btn-rojo" routerLink="/ciudades">
       <mat-icon>location_city</mat-icon>
       Ciudades
     </button>
   </div>
 
   <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
-    <button mat-button class="btn-rojo">
+    <button mat-button class="btn-rojo" routerLink="empresa-transporte">
       <mat-icon>business</mat-icon>
-      Empresas
+      Empresas de Transporte
     </button>
   </div>
 

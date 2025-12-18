@@ -1,0 +1,85 @@
+/* ===== CONTENEDOR GENERAL ===== */
+:host {
+  display: block;
+  padding: 24px;
+  background-color: #ffffff;
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #333;
+}
+
+/* ===== BOTÓN NUEVO ===== */
+button[mat-raised-button] {
+  background-color: #ab0909 !important;
+  color: #fff !important;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+/* ===== TABLA ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== CABECERA ===== */
+thead {
+  background-color: #f5f5f5;
+}
+
+th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* ===== FILAS ===== */
+td {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+tbody tr:hover {
+  background-color: #fafafa;
+}
+
+/* ===== ACCIONES ===== */
+td button {
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+/* Botón editar */
+button[color="accent"] {
+  color: #ab0909 !important;
+}
+
+/* Botón eliminar */
+button[color="warn"] {
+  color: #d32f2f !important;
+}
+
+h2 {
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: #ab0909;
+  text-align: center;
+}
+
+/* ===== RESPONSIVE BÁSICO ===== */
+@media (max-width: 768px) {
+  table {
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+}
