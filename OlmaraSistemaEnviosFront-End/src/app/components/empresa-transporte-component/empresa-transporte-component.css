@@ -56,23 +56,43 @@ td button {
   font-weight: 500;
 }
 
-/* Botón editar */
-button[color="accent"] {
-  color: #ab0909 !important;
-}
-
-/* Botón eliminar */
-button[color="warn"] {
-  color: #d32f2f !important;
-}
-
 h2 {
   margin-bottom: 24px;
   font-weight: 600;
   color: #ab0909;
   text-align: center;
 }
+.btn-editar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: #ab0909;
+  border: 1.5px solid #ab0909;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
 
+.btn-editar:hover {
+  background-color: #ab0909;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(171, 9, 9, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-editar:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(171, 9, 9, 0.2);
+}
+
+.btn-editar .icon {
+  font-size: 14px;
+}
 /* ===== RESPONSIVE BÁSICO ===== */
 @media (max-width: 768px) {
   table {
@@ -82,4 +102,113 @@ h2 {
   th, td {
     padding: 10px;
   }
+}
+/* NOMBRE DE EMPRESA */
+.company-main-name {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+/* RUC STYLE */
+.ruc-badge {
+  background-color: #f8fafc;
+  color: #64748b;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: 'Courier New', Courier, monospace; /* Estilo código para números */
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+
+/* BLOQUE DE CONTACTO */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-item {
+  font-size: 0.85rem;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-icon {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* ALINEACIÓN DE ACCIONES */
+.actions-cell {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.text-right {
+  text-align: right;
+  padding-right: 30px;
+}
+
+/* REUTILIZAR BADGES DE ESTADO (Copia esto si no lo tenías) */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.active { background-color: #def7ec; color: #03543f; }
+.inactive { background-color: #fde8e8; color: #9b1c1c; }
+
+/* ===== BOTÓN NUEVA EMPRESA (ACCIÓN PRINCIPAL) ===== */
+.btn-nuevo {
+  background-color: #ab0909; /* Tu rojo #ab0909 */
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(171, 9, 9, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  outline: none;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.btn-nuevo:hover {
+  background-color: #8a0707; /* Rojo un poco más oscuro al presionar */
+  box-shadow: 0 6px 15px rgba(171, 9, 9, 0.4);
+  transform: translateY(-2px); /* Efecto de elevación */
+}
+
+/* Efecto al hacer clic (Active) */
+.btn-nuevo:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(171, 9, 9, 0.2);
+}
+
+/* Estilo para el símbolo "+" dentro del botón */
+.btn-nuevo .icon {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 400;
+  display: inline-block;
+}
+
+/* Estructura del contenedor del título y el botón */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 0 5px;
 }

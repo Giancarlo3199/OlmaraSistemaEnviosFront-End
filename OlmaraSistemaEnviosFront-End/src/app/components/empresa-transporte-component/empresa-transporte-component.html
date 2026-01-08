@@ -1,46 +1,62 @@
-<h2>Gestión de Empresas de Transporte</h2>
+<div class="table-container">
+  <div class="header-section">
+    <h2>Gestión de Empresas de Transporte</h2>
+    <button class="btn-nuevo" (click)="nuevaEmpresa()">
+      <span class="icon">+</span> Nueva Empresa
+    </button>
+  </div>
 
-<div style="margin-bottom: 16px;">
-  <button mat-raised-button (click)="nuevaEmpresa()">
-    Nueva Empresa
-  </button>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Razón Social / Nombre</th>
+          <th>Identificación (RUC)</th>
+          <th>Contacto</th>
+          <th>Estado</th>
+          <th class="text-right">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let e of empresas$ | async; trackBy: trackById">
+          <td>
+            <div class="company-main-name">{{ e.nombre }}</div>
+          </td>
+
+          <td>
+            <span class="ruc-badge">{{ e.ruc }}</span>
+          </td>
+
+          <td>
+            <div class="contact-info">
+              <div class="contact-item" *ngIf="e.telefono">
+                <span class="contact-icon">📞</span> {{ e.telefono }}
+              </div>
+              <div class="contact-item" *ngIf="e.email">
+                <span class="contact-icon">📧</span> {{ e.email }}
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <span [class]="e.activo ? 'status-badge active' : 'status-badge inactive'">
+              {{ e.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+
+          <td class="actions-cell">
+            <button class="btn-editar" (click)="editar(e.id!)">
+              <span class="icon">✏️</span>
+              <span>Editar</span>
+            </button>
+            <button class="btn-eliminar" (click)="eliminar(e.id!)">
+              <span class="icon">🗑️</span>
+              <span>Eliminar</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>RUC</th>
-      <th>Teléfono</th>
-      <th>Email</th>
-      <th>Activo</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let e of empresas$ | async; trackBy: trackById">
-      <td>{{ e.nombre }}</td>
-      <td>{{ e.ruc }}</td>
-      <td>{{ e.telefono }}</td>
-      <td>{{ e.email }}</td>
-      <td>{{ e.activo ? 'Sí' : 'No' }}</td>
-      <td>
-       <button
-  mat-button
-  color="accent"
-  (click)="editar(e.id!)">
-  Editar
-</button>
-
-<button
-  mat-button
-  color="warn"
-  (click)="eliminar(e.id!)">
-  Eliminar
-</button>
-
-      </td>
-    </tr>
-  </tbody>
-</table>

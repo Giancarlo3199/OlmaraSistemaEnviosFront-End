@@ -1,0 +1,61 @@
+<div class="table-container">
+  <div class="header-section">
+    <h2>Gestión de Envíos</h2>
+    <button class="btn-nuevo" (click)="nuevoEnvio()">
+      <span class="icon">+</span> Nuevo Envío
+    </button>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Documentación Interna</th>
+          <th>Transporte</th>
+          <th>Ruta (Origen - Destino)</th>
+          <th>Estado</th>
+          <th class="text-right">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let e of envios$ | async; trackBy: trackById">
+          <td>
+            <div class="docs-container">
+              <span class="doc-tag" *ngIf="e.numeroGuiaInterna" title="Guía">G: {{ e.numeroGuiaInterna }}</span>
+              <span class="doc-tag" *ngIf="e.numeroFacturaInterna" title="Factura">F: {{ e.numeroFacturaInterna }}</span>
+              <span class="doc-tag" *ngIf="e.boletaInterna" title="Boleta">B: {{ e.boletaInterna }}</span>
+              <span class="no-data" *ngIf="!e.numeroGuiaInterna && !e.numeroFacturaInterna && !e.boletaInterna">Sin docs</span>
+            </div>
+          </td>
+
+          <td>
+            <span class="company-name">{{ e.empresaTransporte?.nombre || 'No asignado' }}</span>
+          </td>
+
+          <td class="shipping-cell">
+            <div class="route-info">
+              <span class="origin">{{ e.ciudadPartida?.nombreCiudad }}</span>
+              <span class="arrow">→</span>
+              <span class="destination">{{ e.destino }}</span>
+            </div>
+            <div class="address-subtext">📍 {{ e.direccionEnvio }}</div>
+          </td>
+
+          <td>
+            <span [class]="'status-pill ' + (e.estado?.toLowerCase() || 'pendiente')">
+              {{ e.estado?.replace('_', ' ') }}
+            </span>
+          </td>
+
+          <td class="actions-cell">
+            <button class="btn-editar" (click)="editar(e.id!)">
+              <span class="icon">✏️</span>
+              <span>Editar</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="alerts-container">
+  <div class="header-section">
+    <h2>Centro de Notificaciones</h2>
+    <span class="badge-count" *ngIf="alertas.length > 0">{{ alertas.length }} pendientes</span>
+  </div>
+
+  <div class="alerts-list">
+    <div *ngFor="let a of alertas"
+         [class]="'alert-item ' + a.tipoAlerta.toLowerCase()"
+         class="animate__animated animate__fadeInUp">
+
+      <div class="alert-icon">
+        <mat-icon *ngIf="a.tipoAlerta === 'CRITICA' || a.tipoAlerta === 'ERROR'">report</mat-icon>
+        <mat-icon *ngIf="a.tipoAlerta === 'ADVERTENCIA'">warning</mat-icon>
+        <mat-icon *ngIf="a.tipoAlerta === 'INFO' || a.tipoAlerta === 'EXITO'">notifications_active</mat-icon>
+      </div>
+
+      <div class="alert-content">
+        <div class="alert-header">
+          <span class="alert-type">{{ a.tipoAlerta }}</span>
+          <span class="alert-date">{{ a.createdAt | date:'dd MMM, h:mm a' }}</span>
+        </div>
+        <p class="alert-message">{{ a.mensaje }}</p>
+      </div>
+
+      <button class="btn-dismiss" title="Marcar como leída">
+        <mat-icon>done</mat-icon>
+      </button>
+    </div>
+
+    <div class="empty-alerts" *ngIf="alertas.length === 0">
+      <mat-icon>check_circle_outline</mat-icon>
+      <p>No tienes alertas pendientes</p>
+    </div>
+  </div>
+</div>

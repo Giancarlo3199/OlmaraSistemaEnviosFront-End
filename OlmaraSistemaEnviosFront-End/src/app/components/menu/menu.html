@@ -1,85 +1,85 @@
-<mat-toolbar class="custom-toolbar">
-
-  <div class="logo-contanier">
-    <img src="assets/logoOlmara.png" alt="Olmara Education" />
+<mat-toolbar class="olmara-navbar">
+  <div class="logo-container" (click)="irAHome()">
+    <img src="assets/logoOlmara.png" alt="Olmara Logo" />
   </div>
 
-  <!-- MENÚ PÚBLICO -->
-  <div *ngIf="!isLoggedInUsuario()">
-    <button mat-button routerLink="/home" routerLinkActive="active" class="btn-rojo">
-      <mat-icon>home</mat-icon>
-      Inicio
+  <div class="nav-links">
+    <button mat-button routerLink="/home" routerLinkActive="active-link" *ngIf="!isLoggedInUsuario()">
+      <mat-icon>home</mat-icon> <span>Inicio</span>
     </button>
+
+    <ng-container *ngIf="isLoggedIn()">
+      <button mat-button routerLink="/inicio" routerLinkActive="active-link">
+        <mat-icon>dashboard</mat-icon> <span>Panel</span>
+      </button>
+
+      <button mat-button routerLink="/envios" routerLinkActive="active-link"
+              *ngIf="rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN'">
+        <mat-icon>local_shipping</mat-icon> <span>Envíos</span>
+      </button>
+
+      <button mat-button routerLink="/ciudades" routerLinkActive="active-link"
+              *ngIf="rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN'">
+        <mat-icon>location_city</mat-icon> <span>Ciudades</span>
+      </button>
+
+      <button mat-button routerLink="/empresa-transporte" routerLinkActive="active-link"
+              *ngIf="rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN'">
+        <mat-icon>business</mat-icon> <span>Empresas</span>
+      </button>
+
+      <button mat-button routerLink="/usuarios" routerLinkActive="active-link" *ngIf="rolUsuario() === 'ADMIN'">
+        <mat-icon>group</mat-icon> <span>Usuarios</span>
+      </button>
+
+      <button mat-button routerLink="/inicio" routerLinkActive="active-link" *ngIf="rolUsuario() === 'ADMIN'">
+        <mat-icon>analytics</mat-icon> <span>Reportes</span>
+      </button>
+    </ng-container>
   </div>
 
-  <!-- MENÚ PRIVADO -->
-  <div *ngIf="isLoggedInUsuario()">
-    <button mat-button routerLink="/inicio" routerLinkActive="active" class="btn-rojo">
-      <mat-icon>home</mat-icon>
-      Inicio
+  <span class="spacer"></span>
+
+  <div class="right-actions" *ngIf="isLoggedInUsuario() && !rutaEsHome()">
+
+    <button mat-icon-button [matMenuTriggerFor]="menuAlertas" class="notif-btn" *ngIf="rolUsuario() === 'ADMIN'">
+      <mat-icon>notifications</mat-icon>
+      <span class="pulse-badge" *ngIf="contadorAlertas > 0">{{ contadorAlertas }}</span>
     </button>
+
+    <div class="user-profile">
+      <div class="user-info-text">
+        <span class="user-name">Mi Cuenta</span>
+        <span class="user-role">{{ rolUsuario() }}</span>
+      </div>
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="avatar-btn">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+
+    <mat-menu #userMenu="matMenu" xPosition="before" class="modern-menu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon> <span>Ajustes</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()" class="logout-item">
+        <mat-icon>logout</mat-icon> <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+
+    <mat-menu #menuAlertas="matMenu" class="modern-menu alert-dropdown">
+      <div class="menu-header">Notificaciones Recientes</div>
+      <ng-container *ngIf="alertas.length > 0; else sinAlertas">
+        <button mat-menu-item *ngFor="let a of alertas" (click)="abrirAlerta(a)">
+          <mat-icon class="icon-success">check_circle</mat-icon>
+          <span class="alert-msg">{{ a.mensaje }}</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/alertas" class="view-all">Ver todas</button>
+      </ng-container>
+      <ng-template #sinAlertas>
+        <div class="empty-state">No hay alertas nuevas</div>
+      </ng-template>
+    </mat-menu>
   </div>
-
-  <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
-    <button mat-button class="btn-rojo">
-      <mat-icon>local_shipping</mat-icon>
-      Envíos
-    </button>
-  </div>
-
-  <div *ngIf="isLoggedIn() && rolUsuario() === 'ADMIN'">
-    <button mat-button class="btn-rojo" routerLink="/usuarios">
-      <mat-icon>group</mat-icon>
-      Usuarios
-    </button>
-  </div>
-
-  <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
-    <button mat-button class="btn-rojo" routerLink="/ciudades">
-      <mat-icon>location_city</mat-icon>
-      Ciudades
-    </button>
-  </div>
-
-  <div *ngIf="isLoggedIn() && (rolUsuario() === 'EMPLEADO' || rolUsuario() === 'ADMIN')">
-    <button mat-button class="btn-rojo" routerLink="empresa-transporte">
-      <mat-icon>business</mat-icon>
-      Empresas de Transporte
-    </button>
-  </div>
-
-  <div *ngIf="isLoggedIn() && rolUsuario() === 'ADMIN'">
-    <button mat-button class="btn-rojo">
-      <mat-icon>insert_chart</mat-icon>
-      Reportes
-    </button>
-  </div>
-
-<span class="spacer"></span>
-
-<div class="right-actions" *ngIf="isLoggedInUsuario() && !rutaEsHome()">
-
-  <button
-    *ngIf="rolUsuario() === 'ADMIN'"
-    mat-button
-    class="btn-alertas">
-    Alertas
-  </button>
-
-  <button
-    mat-button
-    class="btn-cuenta">
-    Mi cuenta
-  </button>
-
-  <button
-    mat-raised-button
-    class="btn-logout"
-    (click)="logout()">
-    Cerrar sesión
-  </button>
-
-</div>
-
-
 </mat-toolbar>
