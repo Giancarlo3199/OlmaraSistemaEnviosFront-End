@@ -1,0 +1,97 @@
+.inicio-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.welcome-header h1 {
+  color: #1e293b;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.welcome-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin-bottom: 50px;
+}
+
+/* GRILLA */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+/* TARJETAS */
+.feature-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid #edf2f7;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.05);
+  border-color: #ab0909;
+}
+
+/* ICONOS */
+.icon-box {
+  width: 70px;
+  height: 70px;
+  background: #f8fafc;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.icon-box mat-icon {
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
+  color: #64748b;
+}
+
+.feature-card:hover .icon-box {
+  background: #ab0909;
+}
+
+.feature-card:hover .icon-box mat-icon {
+  color: #ffffff;
+}
+
+/* TEXTOS */
+h3 {
+  color: #1e293b;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.action-text {
+  color: #ab0909;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

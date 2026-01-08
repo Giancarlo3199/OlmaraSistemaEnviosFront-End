@@ -1,90 +1,150 @@
-/* ===== CONTENEDOR GENERAL ===== */
-:host {
-  display: block;
+/* CONTENEDOR PRINCIPAL */
+.table-container {
   padding: 24px;
   background-color: #ffffff;
-  font-family: 'Roboto', Arial, sans-serif;
-  color: #333;
+  border-radius: 12px;
 }
 
-/* ===== TÍTULO ===== */
-h2 {
+/* CABECERA: TÍTULO Y BOTÓN */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 24px;
-  font-weight: 600;
+}
+
+h2 {
   color: #ab0909;
-  text-align: center;
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-/* ===== BOTÓN NUEVO ===== */
-button[mat-raised-button] {
-  background-color: #ab0909 !important;
-  color: #ffffff !important;
-  font-weight: 500;
-  border-radius: 6px;
+/* BOTÓN NUEVA CIUDAD */
+.btn-nuevo {
+  background-color: #ab0909;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* ===== TABLA ===== */
+.btn-nuevo:hover {
+  background-color: #8a0707;
+  box-shadow: 0 4px 12px rgba(171, 9, 9, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ESTILO DE LA TABLA */
+.table-wrapper {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #edf2f7;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: white;
 }
 
-/* ===== CABECERA ===== */
 thead {
-  background-color: #f5f5f5;
+  background-color: #f8fafc;
 }
 
 th {
   text-align: left;
-  padding: 14px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #edf2f7;
 }
 
-/* ===== FILAS ===== */
 td {
-  padding: 14px 16px;
-  font-size: 14px;
-  border-bottom: 1px solid #eaeaea;
+  padding: 16px;
+  font-size: 0.95rem;
+  color: #334155;
+  border-bottom: 1px solid #edf2f7;
 }
 
 tbody tr:hover {
-  background-color: #fafafa;
+  background-color: #f1f5f9;
 }
 
-/* ===== ACCIONES ===== */
-td button {
-  margin-right: 8px;
-  font-weight: 500;
+.city-name {
+  font-weight: 600;
+  color: #1e293b;
 }
 
-/* Botón editar */
-button[color="accent"] {
-  color: #ab0909 !important;
+/* BADGES DE ESTADO */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
 }
 
-/* Botón eliminar */
-button[color="warn"] {
-  color: #d32f2f !important;
+.active {
+  background-color: #def7ec;
+  color: #03543f;
 }
 
-td button:last-child:hover {
-  background-color: rgba(211, 47, 47, 0.1);
+.inactive {
+  background-color: #fde8e8;
+  color: #9b1c1c;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  table {
-    font-size: 13px;
-  }
+/* CELDA DE ACCIONES */
+.actions-cell {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
 
-  th, td {
-    padding: 10px;
-  }
+.text-center { text-align: right; padding-right: 40px; }
+
+/* REUTILIZAMOS TUS BOTONES EDITAR/ELIMINAR */
+.btn-editar, .btn-eliminar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.btn-editar {
+  color: #ab0909;
+  border: 1px solid #ab0909;
+}
+
+.btn-editar:hover {
+  background: #ab0909;
+  color: white;
+}
+
+.btn-eliminar {
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-eliminar:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
 }

@@ -1,43 +1,42 @@
+<div class="table-container">
+  <div class="header-section">
+    <h2>Gestión de Ciudades</h2>
+    <button class="btn-nuevo" (click)="nuevaCiudad()">
+      <span class="icon">+</span> Nueva Ciudad
+    </button>
+  </div>
 
-<h2>Gestión de Ciudades</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre de la Ciudad</th>
+          <th>Estado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
 
-<div style="margin-bottom: 16px;">
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="nuevaCiudad()">
-    Nueva Ciudad
-  </button>
+      <tbody>
+        <tr *ngFor="let u of ciudades$ | async; trackBy: trackById">
+          <td class="city-name">{{ u.nombreCiudad }}</td>
+          <td>
+            <span [class]="u.activo ? 'status-badge active' : 'status-badge inactive'">
+              {{ u.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button class="btn-editar" (click)="editar(u.idCiudad)">
+              <span class="icon">✏️</span>
+              <span>Editar</span>
+            </button>
+
+            <button class="btn-eliminar" (click)="eliminar(u.idCiudad)">
+              <span class="icon">🗑️</span>
+              <span>Eliminar</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Activo</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let u of ciudades$ | async; trackBy: trackById">
-      <td>{{ u.nombreCiudad }}</td>
-       <td>{{ u.activo ? 'Sí' : 'No' }}</td>
-     <td>
-              <button
-  mat-button
-  color="accent"
-  (click)="editar(u.idCiudad)">
-  Editar
-</button>
-
-<button
-  mat-button
-  color="warn"
-  (click)="eliminar(u.idCiudad)">
-  Eliminar
-</button>
-      </td>
-    </tr>
-  </tbody>
-</table>

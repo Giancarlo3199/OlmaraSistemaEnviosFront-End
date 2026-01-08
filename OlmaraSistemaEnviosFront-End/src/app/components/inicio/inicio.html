@@ -1,1 +1,46 @@
-<p>inicio works!</p>
+<div class="inicio-container">
+  <header class="welcome-header">
+    <h1>Bienvenido al Sistema Olmara Education</h1>
+    <p>¿Qué deseas gestionar hoy?</p>
+  </header>
+
+  <div class="dashboard-grid">
+
+    <div class="feature-card" (click)="irA('/envios')" *ngIf="userRole === 'ADMIN' || userRole === 'EMPLEADO'">
+      <div class="icon-box red">
+        <mat-icon>local_shipping</mat-icon>
+      </div>
+      <h3>Gestión de Envíos</h3>
+      <p>Registra, edita y rastrea todos tus paquetes en tiempo real.</p>
+      <span class="action-text">Ir a Envíos →</span>
+    </div>
+
+    <div class="feature-card" (click)="irA('/empresas')" *ngIf="userRole === 'ADMIN' || userRole === 'EMPLEADO'">
+      <div class="icon-box">
+        <mat-icon>business</mat-icon>
+      </div>
+      <h3>Empresas</h3>
+      <p>Administra las agencias de transporte y proveedores logísticos.</p>
+      <span class="action-text">Administrar →</span>
+    </div>
+
+    <div class="feature-card" (click)="irA('/ciudades')" *ngIf="userRole === 'ADMIN' || userRole === 'EMPLEADO'">
+      <div class="icon-box">
+        <mat-icon>location_city</mat-icon>
+      </div>
+      <h3>Ciudades</h3>
+      <p>Configura las rutas y destinos disponibles para los envíos.</p>
+      <span class="action-text">Configurar →</span>
+    </div>
+
+    <div class="feature-card" (click)="irA('/usuarios')" *ngIf="userRole === 'ADMIN'">
+      <div class="icon-box">
+        <mat-icon>people</mat-icon>
+      </div>
+      <h3>Usuarios</h3>
+      <p>Control de accesos y gestión de personal del sistema.</p>
+      <span class="action-text">Gestionar →</span>
+    </div>
+
+  </div>
+</div>

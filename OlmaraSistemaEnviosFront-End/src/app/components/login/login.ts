@@ -8,12 +8,15 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtRequest } from '../../models/JwtRequest';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule],
+  imports: [MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule,
+    MatIconModule
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

@@ -1,45 +1,53 @@
+<div class="table-container">
+  <div class="header-section">
+    <h2>Gestión de Usuarios</h2>
+    <button class="btn-nuevo" (click)="nuevoUsuario()">
+      <span class="icon">+</span> Nuevo Usuario
+    </button>
+  </div>
 
-<h2>Gestión de Usuarios</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Personal / Colaborador</th>
+          <th>ID de Acceso</th>
+          <th>Correo Electrónico</th>
+          <th class="text-right">Acciones</th>
+        </tr>
+      </thead>
 
-<div style="margin-bottom: 16px;">
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="nuevoUsuario()">
-    Nuevo Usuario
-  </button>
+      <tbody>
+        <tr *ngFor="let u of usuarios$ | async; trackBy: trackById">
+          <td>
+            <div class="user-info">
+              <div class="user-avatar">{{ u.nombres.charAt(0) }}</div>
+              <div class="user-details">
+                <span class="full-name">{{ u.nombres }}</span>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <span class="username-tag">@{{ u.username }}</span>
+          </td>
+
+          <td>
+            <span class="email-text">{{ u.correo }}</span>
+          </td>
+
+          <td class="actions-cell">
+            <button class="btn-editar" (click)="editar(u.id)">
+              <span class="icon">✏️</span>
+              <span>Editar</span>
+            </button>
+            <button class="btn-eliminar" (click)="eliminar(u.id)">
+              <span class="icon">🗑️</span>
+              <span>Eliminar</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nombres</th>
-      <th>Usuario</th>
-      <th>Correo</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let u of usuarios$ | async; trackBy: trackById">
-      <td>{{ u.nombres }}</td>
-      <td>{{ u.username }}</td>
-      <td>{{ u.correo }}</td>
-      <td>
-        <button
-          mat-button
-          color="accent"
-          (click)="editar(u.id)">
-          Editar
-        </button>
-
-        <button
-          mat-button
-          color="warn"
-          (click)="eliminar(u.id)">
-          Eliminar
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>

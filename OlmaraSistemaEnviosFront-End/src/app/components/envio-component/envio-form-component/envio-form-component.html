@@ -1,0 +1,191 @@
+<div class="form-container">
+  <h2>{{ id ? 'Editar Envío' : 'Registrar Envío' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="modern-form">
+
+    <div class="form-card">
+      <h3 class="section-header">📄 Documentación de Guías</h3>
+      <div class="grid-row">
+
+        <fieldset formGroupName="datosInternos" class="group-box">
+          <legend>Datos Internos</legend>
+          <div class="inner-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Número Guía Interna</mat-label>
+              <input matInput formControlName="numeroGuiaInterna">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Factura Interna</mat-label>
+              <input matInput formControlName="numeroFacturaInterna">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Boleta Interna</mat-label>
+              <input matInput formControlName="boletaInterna">
+            </mat-form-field>
+          </div>
+          <div class="error-text" *ngIf="form.get('datosInternos')?.hasError('alMenosUno') && form.get('datosInternos')?.touched">
+            ⚠️ Debe ingresar al menos un dato interno.
+          </div>
+        </fieldset>
+
+        <fieldset formGroupName="datosExternos" class="group-box">
+          <legend>Datos Externos</legend>
+          <div class="inner-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Número Guía Externa</mat-label>
+              <input matInput formControlName="numeroGuiaExterna">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Factura Externa</mat-label>
+              <input matInput formControlName="numeroFacturaExterna">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Tracking Externo</mat-label>
+              <input matInput formControlName="numeroTrackingExterno">
+            </mat-form-field>
+          </div>
+          <div class="error-text" *ngIf="form.get('datosExternos')?.hasError('alMenosUno') && form.get('datosExternos')?.touched">
+            ⚠️ Debe ingresar al menos un dato externo.
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3 class="section-header">🚚 Logística y Destino</h3>
+      <div class="grid-row three-cols">
+        <mat-form-field appearance="outline">
+          <mat-label>Empresa de Transporte</mat-label>
+          <mat-select formControlName="empresaTransporte" [compareWith]="compararEmpresa">
+            <mat-option *ngFor="let e of empresas" [value]="e">{{ e.nombre }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ciudad de Partida</mat-label>
+          <mat-select formControlName="ciudadPartida" [compareWith]="compararCiudad">
+            <mat-option *ngFor="let c of ciudades" [value]="c">{{ c.nombreCiudad }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de Envío</mat-label>
+          <mat-select formControlName="tipoEnvio">
+            <mat-option *ngFor="let t of tiposEnvio" [value]="t">{{ t }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="grid-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Destino (Búsqueda Olva)</mat-label>
+          <input type="text" matInput [formControl]="destinoLlegadaCtrl" [matAutocomplete]="autoDestino" />
+          <mat-autocomplete #autoDestino="matAutocomplete" (optionSelected)="seleccionarDestino($event.option.value)">
+            <mat-option *ngFor="let d of destinosFiltrados$ | async" [value]="d">{{ d }}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección de Envío</mat-label>
+          <input matInput formControlName="direccionEnvio">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3 class="section-header">📦 Carga y Detalles de Pago</h3>
+      <div class="grid-row four-cols">
+        <mat-form-field appearance="outline">
+          <mat-label>Cant. Cajas</mat-label>
+          <input matInput type="number" formControlName="cantidadCajas">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cant. Paquetes</mat-label>
+          <input matInput type="number" formControlName="cantidadPaquetes">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cant. Sobres</mat-label>
+          <input matInput type="number" formControlName="cantidadSobres">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Peso Total (kg)</mat-label>
+          <input matInput type="number" formControlName="pesoTotal">
+        </mat-form-field>
+      </div>
+
+      <div class="grid-row dual-inline">
+        <mat-form-field appearance="outline">
+          <mat-label>Monto Pagado</mat-label>
+          <input matInput type="number" formControlName="montoPagado">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Moneda</mat-label>
+          <mat-select formControlName="moneda">
+            <mat-option value="PEN">Soles (PEN)</mat-option>
+            <mat-option value="USD">Dólares (USD)</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3 class="section-header">📅 Seguimiento de Fechas</h3>
+      <div class="grid-row four-cols">
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Envío</mat-label>
+          <input matInput type="date" formControlName="fechaEnvio">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Est. Llegada</mat-label>
+          <input matInput type="date" formControlName="fechaEstimadaLlegada">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>En Tránsito</mat-label>
+          <input matInput type="date" formControlName="fechaTransito">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Recepción</mat-label>
+          <input matInput type="date" formControlName="fechaRecepcion">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3 class="section-header">👤 Responsables y Estado</h3>
+      <div class="grid-row three-cols">
+        <mat-form-field appearance="outline">
+          <mat-label>Operador</mat-label>
+          <mat-select formControlName="operador" [compareWith]="compararUsuario">
+            <mat-option *ngFor="let u of usuarios" [value]="u">{{ u.nombres }} {{ u.apellidos }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cliente / Destinatario</mat-label>
+          <mat-select formControlName="destinatario" [compareWith]="compararUsuario">
+            <mat-option *ngFor="let u of usuarios" [value]="u">{{ u.nombres }} {{ u.apellidos }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado del Envío</mat-label>
+          <mat-select formControlName="estado">
+            <mat-option *ngFor="let e of estadosEnvio" [value]="e">{{ e.replace('_', ' ') }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comentarios adicionales</mat-label>
+        <textarea matInput rows="3" formControlName="comentarios"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="atras()">Cancelar</button>
+      <button type="submit" class="btn-save" [disabled]="form.invalid">
+        {{ id ? 'Actualizar Envío' : 'Guardar Nuevo Envío' }}
+      </button>
+    </div>
+
+  </form>
+</div>

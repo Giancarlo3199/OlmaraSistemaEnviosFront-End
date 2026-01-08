@@ -8,6 +8,9 @@ import { CiudadComponent } from './components/ciudad-component/ciudad-component'
 import { CiudadFormComponent } from './components/ciudad-component/ciudad-form-component/ciudad-form-component';
 import { EmpresaTransporteComponent } from './components/empresa-transporte-component/empresa-transporte-component';
 import { EmpresaTransporteFormComponent } from './components/empresa-transporte-component/empresa-transporte-form-component/empresa-transporte-form-component';
+import { EnvioComponent } from './components/envio-component/envio-component';
+import { EnvioFormComponent } from './components/envio-component/envio-form-component/envio-form-component';
+import { AlertasComponent } from './components/alertas-component/alertas-component';
 
 export const routes: Routes = [
    { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -41,7 +44,20 @@ export const routes: Routes = [
 },
 {
   path: 'empresa-transporte/editar/:id',
-  component: EmpresaTransporteFormComponent
-}
+  component: EmpresaTransporteFormComponent,
+},
+
+  { path: 'envios', component: EnvioComponent },
+  { path: 'envios/nuevo', component: EnvioFormComponent },
+  { path: 'envios/editar/:id', component: EnvioFormComponent },
+
+   {
+  path: 'alertas',
+  component: AlertasComponent,
+  canActivate: [seguridadGuard],
+  data: { roles: ['ADMIN'] }
+},
+
+  { path: '**', redirectTo: 'usuarios' },
 
 ];

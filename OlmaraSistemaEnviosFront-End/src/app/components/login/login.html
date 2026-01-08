@@ -1,51 +1,36 @@
-<div class="container" style="text-align: center">
-  <div class="img">
-    <img src="assets/logoOlmara.png" alt="Logo de la empresa">
+<div class="login-page">
+  <div class="login-card compact">
+
+    <div class="login-header">
+      <div class="logo-wrapper">
+        <img src="assets/logoOlmara.png" alt="Logo">
+      </div>
+      <h2>¡Bienvenido!</h2>
+      <p class="subtitulo-sistema">Gestión de Envíos</p>
+    </div>
+
+    <form class="login-form">
+      <mat-form-field appearance="outline" class="full-width density-compact">
+        <mat-label>Usuario</mat-label>
+        <input matInput [(ngModel)]="username" name="username" required />
+        <mat-icon matPrefix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width density-compact">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" [(ngModel)]="password" name="password" required />
+        <mat-icon matPrefix>lock</mat-icon>
+      </mat-form-field>
+
+      <div class="actions-stack">
+        <button mat-raised-button class="btn-login" (click)="login()">Ingresar</button>
+        <button mat-button class="btn-cancel" type="button" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+
+    <div class="login-footer">
+      <p>¿No tienes cuenta? <a routerLink="/usuarios/nuevo">Regístrate</a></p>
+    </div>
+
   </div>
-
-    <h3 class="subtitulo-sistema">Sistema de Gestión de Envíos</h3>
-
-  <h2>🔐 Inicie sesión</h2>
-
-<mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
-  <mat-label>👤 Usuario</mat-label>
-  <input
-    matInput
-    placeholder="Ingrese su usuario"
-    [(ngModel)]="username"
-    name="username"
-    required
-  />
-</mat-form-field>
-
-
-<br />
-
-<mat-form-field appearance="outline" class="example-full-width" floatLabel="always">
-  <mat-label>🔑 Password</mat-label>
-  <input
-    matInput
-    type="password"
-    placeholder="Ingrese su contraseña"
-    [(ngModel)]="password"
-    name="password"
-    required
-  />
-</mat-form-field>
-
-
-  <br />
-
-  <button mat-raised-button class="custom-button" (click)="login()">🚪 Ingresar</button>
-   <br>
-   <br>
-  <button mat-raised-button color="accent" type="button" (click)="cancelar()">
-        Cancelar
-    </button>
-
-  <!-- Enlace al registro -->
-  <p style="margin-top: 15px; font-size: 14px;">
-    ¿No tienes una cuenta?
-    <a href="/usuarios/nuevo" style="text-decoration: none; color: #3f51b5;">Haz click aquí</a>
-  </p>
 </div>
