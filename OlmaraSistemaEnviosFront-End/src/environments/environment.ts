@@ -1,6 +1,6 @@
 export const environment={
   production:false,
-  base:"http://localhost:8801"
+  base:"https://olmarasistemaenviosback-end-production.up.railway.app"
 }
 //ENLACE CON EL BACKEND OLMARA EDUCATION PONER LA RUTA Y
 // VERIFICAR EL PUERTO IMPORTANTE
