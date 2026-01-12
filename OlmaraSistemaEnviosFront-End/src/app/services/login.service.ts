@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { JwtRequest } from '../models/JwtRequest';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @Injectable({
@@ -16,22 +17,21 @@ export class LoginService {
   loginStatus$ = this.loginStatus.asObservable();
   userRol$ = this.userRol.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   login(request: JwtRequest) {
     return this.http.post<any>(`${environment.base}/login`, request);
   }
 
   verificar() {
-  if (typeof window !== 'undefined') {
-    let token = localStorage.getItem('token');
-    return token != null;
+  if (isPlatformBrowser(this.platformId)) {
+    return localStorage.getItem('token') != null;
   }
   return false;
 }
 
 showRole() {
-  if (typeof window !== 'undefined') {
+  if (isPlatformBrowser(this.platformId)) {
     const token = localStorage.getItem('token');
     if (!token) return null;
 
@@ -43,11 +43,15 @@ showRole() {
 }
 
   getIdUsuario(): number | null {
+    if (isPlatformBrowser(this.platformId)) {
     const token = localStorage.getItem('token');
     if (!token) return null;
+
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(token);
     return decodedToken?.idUsuario || null;
+  }
+  return null;
   }
 
   actualizarEstado(): void {
@@ -56,8 +60,10 @@ showRole() {
   }
 
   logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
     localStorage.clear();
-    this.loginStatus.next(false);
-    this.userRol.next('');
+  }
+  this.loginStatus.next(false);
+  this.userRol.next('');
   }
 }
