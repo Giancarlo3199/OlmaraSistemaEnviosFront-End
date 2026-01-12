@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import {
   HttpEvent,
   HttpHandler,
@@ -6,28 +6,30 @@ import {
   HttpRequest
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-/*Sirve para:
-token se envía correctamente al backend.
-interceptor está funcionando.
-backend valida el JWT y responde bien.
-La lista filtrada por ID de usuario ya se muestra en el frontend.*/
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const cloned = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      return next.handle(cloned);
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const cloned = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        return next.handle(cloned);
+      }
     }
+
     return next.handle(req);
   }
 }
